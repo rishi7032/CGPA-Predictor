@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Predictor</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #details {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">CGPA Predictor</h2>
+
+        <form method="post" action="{{ url_for('predict') }}">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="roll_number">Roll Number:</label>
+                <input type="text" class="form-control" id="roll_number" name="roll_number" required>
+            </div>
+            <div class="form-group">
+                <label for="model">Choose a Model:</label>
+                <select class="form-control" id="model" name="model" required>
+                    <option value="1">Model 1 (Predicts CGPA based on first year grades only.)</option>
+                    <option value="2">Model 2 (Predicts CGPA based on first two year grades only.)</option>
+                    <option value="3">Model 3 (Predicts CGPA based on first three year grades only.)</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary show-details-btn">Show Details</button>
+            <button type="button" class="btn btn-primary enter-details-btn">Enter Details</button>
+            <button type="submit" class="btn btn-primary">Predict CGPA</button>
+        </form>
+
+        <div id="details" class="fade"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $(".show-details-btn").click(function () {
+                var name = $("#name").val();
+                var rollNumber = $("#roll_number").val();
+                var model = $("#model").val();
+
+                $.ajax({
+                    url: "/get_details",
+                    type: "POST",
+                    data: { name: name, roll_number: rollNumber, model: model },
+                    success: function (response) {
+                        $("#details").html(response).addClass("show");
+                    }
+                });
+            });
+
+            $(".enter-details-btn").click(function () {
+            // Redirect to the "enterdetails" route
+            window.location.href = "{{ url_for('enterdetails') }}";
+            });
+        });
+    </script>
+</body>
+
+</html>

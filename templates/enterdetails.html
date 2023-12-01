@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Enter Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h4 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Details</h1>
+    <h4>Enter Name and Roll Number in capitals. <br> Ex: VAGMARE RISHIKESH, 20P71A6728</h4>
+    <h4>Enter Grades in CAPITAL { O, A+, A, B+, B, C }</h4>
+    <form method="post" action="/submit">
+        {% if columns %}
+        {% for column in columns %}
+        <label>{{ column }}:</label>
+        <input type="text" name="{{ column }}" required>
+        {% endfor %}
+        <button type="submit">Submit</button>
+        {% endif %}
+    </form>
+
+    {% if submission_successful %}
+        <p class="success-message">Submission Successful!</p>
+        <script>
+            setTimeout(function () {
+                window.location.href = "{{ url_for('home') }}";
+            }, 1);  // Redirect to home page after 2 seconds
+        </script>
+    {% endif %}
+    
+</body>
+</html>

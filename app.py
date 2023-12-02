@@ -5,14 +5,15 @@ import os
 import csv
 
 app = Flask(__name__)
+sheet_id1 = '1TJd68kwptdgKZiKaN-VL3XMAECv4Hgl6KDYMKAGSOGw'
+DATA_CSV_PATH = r"https://docs.google.com/spreadsheets/d/{sheet_id1}/export?format=csv"
 
-DATA_CSV_PATH = r"Student details.csv"
-
-csv_file_path = r"Student details.csv"
+csv_file_path = r"https://docs.google.com/spreadsheets/d/{sheet_id1}/export?format=csv"
 def encrypt_grade(grade):
     encryption_mapping = {'O': 10, 'A+': 9, 'A': 8, 'B+': 7, 'B': 6, 'C': 5}
     return encryption_mapping.get(grade, 0)
-file_path = r"MYDATASET.csv"
+sheet_id2 = '1LBPYtxy7-QOXpOYWTfMbh3yTmnB0scE9YgA7uGdq0fw'
+file_path = r"https://docs.google.com/spreadsheets/d/{sheet_id2}/export?format=csv"
 df = pd.read_csv(file_path)
 input = df.drop(["4Predictive Analytics","4Web and Social Media Analytics","4Professional Elective - 4","4Professional Elective - 5","4Open Elective - 2","4Seminar","4Web and Social Media Analytics Lab","4Mini Project ","4Project Stage - 1","4Organizational Behaviour","4Professional Elective - 6","4Open Elective - 3","4Project Stage - 2","No","CGPA"], axis=1)
 target = df[["CGPA"]]
